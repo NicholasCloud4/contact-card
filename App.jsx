@@ -9,23 +9,19 @@ export default function App() {
         lastName: "Doe",
         phone: "+1 (212) 555-1212",
         email: "itsmyrealname@example.com",
-        isFavorite: true
+        isFavorite: false
     })
 
     let starIcon = contact.isFavorite ? starFilled : starEmpty
 
     function toggleFavorite() {
-        console.log("Toggle Favorite")
+        setContact(prevContact => {
+            return {
+                ...prevContact,
+                isFavorite: !prevContact.isFavorite
+            }
+        })
     }
-
-    /**
-     * Challenge:
-     * Update the following:
-     * - aria-pressed should reflect the same value as contact.isFavorite.
-     * - aria-label should switch to say "Remove from favorites" if
-     *   contact.isFavorite is `true`.
-     * - img alt should say "filled star icon" when it is filled.
-     */
 
     return (
         <main>
@@ -38,7 +34,7 @@ export default function App() {
                 <div className="info">
                     <button
                         onClick={toggleFavorite}
-                        aria-pressed={contact.isFavorite.valueOf()}
+                        aria-pressed={contact.isFavorite}
                         aria-label={contact.isFavorite ? "Remove from favorites" : "Add to favorites"}
                         className="favorite-button"
                     >
